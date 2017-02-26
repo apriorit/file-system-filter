@@ -1,0 +1,11 @@
+TARGETNAME  = FsFilter
+TARGETPATH  = obj
+TARGETTYPE  = DRIVER
+DRIVERTYPE  = FS
+
+SOURCES     = \
+    Main.c \
+    IrpDispatch.c \
+    AttachDetach.c \
+    Notification.c \
+    FastIo.c
