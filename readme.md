@@ -13,7 +13,7 @@ Author: @SergiusTheBest
 ## Implementation
 
 The code is written in C++. You will also need WDK/IFS kit to build the solution.
-You can find a step-by-step file system filter driver tutorial with code samples as well as instructions on how to install/uninstall and start/stop this driver in the detailed related article.
+You can find a step-by-step file system filter driver tutorial with code samples as well as instructions on how to install/uninstall and start/stop this driver in the [detailed related article](https://www.apriorit.com/dev-blog/167-file-system-filter-driver).
 
 ## License
 
