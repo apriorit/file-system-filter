@@ -52,6 +52,7 @@ NTSTATUS DriverEntry(
     __in    PUNICODE_STRING RegistryPath
     )
 {    
+    UNREFERENCED_PARAMETER(RegistryPath);
     NTSTATUS status = STATUS_SUCCESS;
     ULONG    i      = 0;
 

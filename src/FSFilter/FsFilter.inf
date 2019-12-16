@@ -1,0 +1,92 @@
+;;;
+;;; FsFilter
+;;;
+
+[Version]
+Signature   = "$Windows NT$"
+Class       = "Bottom"
+ClassGuid   = {3CE4F760-683C-47CE-929B-24896127EEB4}
+Provider    = %ManufacturerName%
+DriverVer   = 
+CatalogFile = FsFilter.cat
+
+[DestinationDirs]
+DefaultDestDir      = 12
+Filter.DriverFiles  = 12            ;%windir%\system32\drivers
+
+;;
+;; Default install sections
+;;
+
+[DefaultInstall]
+OptionDesc          = %ServiceDescription%
+CopyFiles           = Filter.DriverFiles
+
+[DefaultInstall.Services]
+AddService          = %ServiceName%,,Filter.Service
+
+;;
+;; Default uninstall sections
+;;
+
+[DefaultUninstall]
+DelFiles   = Filter.DriverFiles
+
+[DefaultUninstall.Services]
+DelService = %ServiceName%,0x200      ;Ensure service is stopped before deleting
+
+;
+; Services Section
+;
+
+[Filter.Service]
+DisplayName      = %ServiceName%
+Description      = %ServiceDescription%
+ServiceBinary    = %12%\%DriverName%.sys        ;%windir%\system32\drivers\
+ServiceType      = 2                            ;SERVICE_FILE_SYSTEM_DRIVER
+StartType        = 3                            ;SERVICE_DEMAND_START
+ErrorControl     = 1                            ;SERVICE_ERROR_NORMAL
+LoadOrderGroup   = "FSFilter Bottom"
+AddReg           = Filter.AddRegistry
+
+;
+; Registry Modifications
+;
+
+[Filter.AddRegistry]
+HKR,,"DebugFlags",0x00010001 ,0x0
+HKR,,"SupportedFeatures",0x00010001,0x3
+HKR,"Instances","DefaultInstance",0x00000000,%DefaultInstance%
+HKR,"Instances\"%Instance1.Name%,"Altitude",0x00000000,%Instance1.Altitude%
+HKR,"Instances\"%Instance1.Name%,"Flags",0x00010001,%Instance1.Flags%
+
+;
+; Copy Files
+;
+
+[Filter.DriverFiles]
+%DriverName%.sys
+
+[SourceDisksFiles]
+FsFilter.sys = 1,,
+
+[SourceDisksNames]
+1 = %DiskId1%,,,
+
+;;
+;; String Section
+;;
+
+[Strings]
+; TODO - Add your manufacturer
+ManufacturerName        = "Template"
+ServiceDescription      = "FsFilter Filter Driver"
+ServiceName             = "FsFilter"
+DriverName              = "FsFilter"
+DiskId1                 = "FsFilter Device Installation Disk"
+
+;Instances specific information.
+DefaultInstance         = "FsFilter Instance"
+Instance1.Name          = "FsFilter Instance"
+Instance1.Altitude      = "47777"
+Instance1.Flags         = 0x0              ; Allow all attachments
